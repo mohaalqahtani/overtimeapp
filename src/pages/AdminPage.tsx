@@ -2,7 +2,7 @@ import { useState } from 'react'
 import { supabase } from '@/lib/supabase'
 
 export default function AdminPage() {
-  const [form, setForm] = useState({ employee_name: '', date: '', hours: '' })
+  const [form, setForm] = useState({ employee_name: '', date: '', hours: '', enter_time: '', exit_time: '', entrances: '' })
   const [message, setMessage] = useState('')
   const [loading, setLoading] = useState(false)
 
@@ -18,12 +18,15 @@ export default function AdminPage() {
       date: form.date,
       hours: parseFloat(form.hours),
       added_by: user?.id,
+      enter_time: form.enter_time,
+      exit_time: form.exit_time,
+      entrances: form.entrances
     })
 
     if (error) setMessage('حدث خطأ، حاول مرة ثانية')
     else {
       setMessage('تمت الإضافة بنجاح ✅')
-      setForm({ employee_name: '', date: '', hours: '' })
+      setForm({ employee_name: '', date: '', hours: '', enter_time: '', exit_time: '', entrances: '' })
     }
     setLoading(false)
   }
@@ -70,8 +73,8 @@ export default function AdminPage() {
             <label className="block text-sm text-gray-600 mb-1">عدد الساعات</label>
             <input
               type="number"
-              step="0.5"
-              min="0.5"
+              step="1"
+              min="1"
               max="24"
               value={form.hours}
               onChange={e => setForm({ ...form, hours: e.target.value })}
@@ -80,6 +83,38 @@ export default function AdminPage() {
             />
           </div>
 
+          <div>
+            <label className="block text-sm text-gray-600 mb-1">بصمة الدخول</label>
+            <input
+              type="text"
+              value={form.enter_time}
+              onChange={e => setForm({ ...form, enter_time: e.target.value })}
+              className="w-full border rounded-lg px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-blue-500"
+              required
+            />
+          </div>
+
+          <div>
+            <label className="block text-sm text-gray-600 mb-1">بصمة الخروج</label>
+            <input
+              type="text"
+              value={form.exit_time}
+              onChange={e => setForm({ ...form, exit_time: e.target.value })}
+              className="w-full border rounded-lg px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-blue-500"
+              required
+            />
+          </div>
+
+          <div>
+            <label className="block text-sm text-gray-600 mb-1">الادخاليات</label>
+            <input
+              type="number"
+              value={form.entrances}
+              onChange={e => setForm({ ...form, entrances: e.target.value })}
+              className="w-full border rounded-lg px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-blue-500"
+              required
+            />
+          </div>
           <button
             type="submit"
             disabled={loading}
