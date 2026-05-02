@@ -2,7 +2,7 @@ import { useState } from 'react'
 import { supabase } from '@/lib/supabase'
 
 export default function AdminPage() {
-  const [form, setForm] = useState({ employee_name: '', date: '', hours: '', enter_time: '', exit_time: '', entrances: '' })
+  const [form, setForm] = useState({ employee_name: '', date: '', hours: '', enter_time: '', exit_time: '', entrances: '', overtype: '' })
   const [message, setMessage] = useState('')
   const [loading, setLoading] = useState(false)
 
@@ -21,12 +21,13 @@ export default function AdminPage() {
       enter_time: form.enter_time,
       exit_time: form.exit_time,
       entrances: form.entrances,
+      overtype: form.overtype
     })
 
     if (error) setMessage('حدث خطأ، حاول مرة ثانية')
     else {
       setMessage('تمت الإضافة بنجاح ✅')
-      setForm({ employee_name: '', date: '', hours: '', enter_time: '', exit_time: '', entrances: '' })
+      setForm({ employee_name: '', date: '', hours: '', enter_time: '', exit_time: '', entrances: '', overtype: '' })
     }
     setLoading(false)
   }
@@ -83,31 +84,31 @@ export default function AdminPage() {
             />
           </div>
 
-<div>
-  <label className="block text-sm text-gray-600 mb-1">بصمة الدخول</label>
-  <div className="flex gap-2">
-    <input
-      type="time"
-      value={form.enter_time}
-      onChange={e => setForm({ ...form, enter_time: e.target.value })}
-      className="flex-1 border rounded-lg px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-blue-500"
-      required
-    />
-  </div>
-</div>
+            <div>
+            <label className="block text-sm text-gray-600 mb-1">بصمة الدخول</label>
+            <div className="flex gap-2">
+                <input
+                type="time"
+                value={form.enter_time}
+                onChange={e => setForm({ ...form, enter_time: e.target.value })}
+                className="flex-1 border rounded-lg px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-blue-500"
+                required
+                />
+            </div>
+            </div>
 
-<div>
-  <label className="block text-sm text-gray-600 mb-1">بصمة الخروج</label>
-  <div className="flex gap-2">
-    <input
-      type="time"
-      value={form.exit_time}
-      onChange={e => setForm({ ...form, exit_time: e.target.value })}
-      className="flex-1 border rounded-lg px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-blue-500"
-      required
-    />
-  </div>
-</div>
+            <div>
+            <label className="block text-sm text-gray-600 mb-1">بصمة الخروج</label>
+            <div className="flex gap-2">
+                <input
+                type="time"
+                value={form.exit_time}
+                onChange={e => setForm({ ...form, exit_time: e.target.value })}
+                className="flex-1 border rounded-lg px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-blue-500"
+                required
+                />
+            </div>
+            </div>
 
           <div>
             <label className="block text-sm text-gray-600 mb-1">الادخاليات</label>
@@ -115,6 +116,17 @@ export default function AdminPage() {
               type="number"
               value={form.entrances}
               onChange={e => setForm({ ...form, entrances: e.target.value })}
+              className="w-full border rounded-lg px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-blue-500"
+              required
+            />
+          </div>
+
+            <div>
+            <label className="block text-sm text-gray-600 mb-1">نوع العمل الاضافي</label>
+            <input
+              type="text"
+              value={form.overtype}
+              onChange={e => setForm({ ...form, overtype: e.target.value })}
               className="w-full border rounded-lg px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-blue-500"
               required
             />

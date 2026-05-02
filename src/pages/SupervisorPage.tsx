@@ -10,6 +10,7 @@ interface OvertimeRecord {
   enter_time: string
   exit_time: string
   entrances: string
+  overtype: string
 }
 
 export default function SupervisorPage() {
@@ -29,8 +30,8 @@ export default function SupervisorPage() {
   }, [])
 
   const exportCSV = () => {
-    const header = ['اسم الموظف', 'التاريخ', 'الساعات','بصمة الدخول','بصمة الخروج','الادخاليات']
-    const rows = records.map(r => [r.employee_name, r.date, r.hours, r.enter_time, r.exit_time, r.entrances])
+    const header = ['اسم الموظف', 'التاريخ', 'الساعات','بصمة الدخول','بصمة الخروج','الادخاليات','نوع العمل الاضافي']
+    const rows = records.map(r => [r.employee_name, r.date, r.hours, r.enter_time, r.exit_time, r.entrances, r.overtype])
     const csv = [header, ...rows].map(r => r.join(',')).join('\n')
     const blob = new Blob(['\uFEFF' + csv], { type: 'text/csv;charset=utf-8;' })
     const url = URL.createObjectURL(blob)
@@ -80,6 +81,7 @@ const formatTime = (time: string) => {
                   <th className="px-4 py-3 text-right">بصمة الدخول</th>
                   <th className="px-4 py-3 text-right">بصمة الخروج</th>
                   <th className="px-4 py-3 text-right">الادخاليات</th>
+                  <th className="px-4 py-3 text-right">نوع العمل الاضافي</th>
                 </tr>
               </thead>
               <tbody className="divide-y divide-gray-100">
@@ -91,6 +93,8 @@ const formatTime = (time: string) => {
                     <td className="px-4 py-3">{formatTime(r.enter_time)}</td>
                     <td className="px-4 py-3">{formatTime(r.exit_time)}</td>
                     <td className="px-4 py-3">{r.entrances}</td>
+                    <td className="px-4 py-3">{r.overtype}</td>
+                    
                   </tr>
                 ))}
                 {records.length === 0 && (
