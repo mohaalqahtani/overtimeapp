@@ -7,6 +7,9 @@ interface OvertimeRecord {
   date: string
   hours: number
   created_at: string
+  enter_time: string
+  exit_time: string
+  entrances: string
 }
 
 export default function SupervisorPage() {
@@ -26,8 +29,8 @@ export default function SupervisorPage() {
   }, [])
 
   const exportCSV = () => {
-    const header = ['اسم الموظف', 'التاريخ', 'الساعات']
-    const rows = records.map(r => [r.employee_name, r.date, r.hours])
+    const header = ['اسم الموظف', 'التاريخ', 'الساعات','بصمة الدخول','بصمة الخروج','الادخاليات']
+    const rows = records.map(r => [r.employee_name, r.date, r.hours, r.enter_time, r.exit_time, r.entrances])
     const csv = [header, ...rows].map(r => r.join(',')).join('\n')
     const blob = new Blob(['\uFEFF' + csv], { type: 'text/csv;charset=utf-8;' })
     const url = URL.createObjectURL(blob)
@@ -65,6 +68,9 @@ export default function SupervisorPage() {
                   <th className="px-4 py-3 text-right">اسم الموظف</th>
                   <th className="px-4 py-3 text-right">التاريخ</th>
                   <th className="px-4 py-3 text-right">الساعات</th>
+                  <th className="px-4 py-3 text-right">بصمة الدخول</th>
+                  <th className="px-4 py-3 text-right">بصمة الخروج</th>
+                  <th className="px-4 py-3 text-right">الادخاليات</th>
                 </tr>
               </thead>
               <tbody className="divide-y divide-gray-100">
@@ -73,6 +79,9 @@ export default function SupervisorPage() {
                     <td className="px-4 py-3">{r.employee_name}</td>
                     <td className="px-4 py-3">{r.date}</td>
                     <td className="px-4 py-3">{r.hours} ساعة</td>
+                    <td className="px-4 py-3">{r.enter_time}</td>
+                    <td className="px-4 py-3">{r.exit_time}</td>
+                    <td className="px-4 py-3">{r.entrances}</td>
                   </tr>
                 ))}
                 {records.length === 0 && (
