@@ -45,6 +45,15 @@ export default function SupervisorPage() {
     window.location.href = '/'
   }
 
+const formatTime = (time: string) => {
+  if (!time) return ''
+  const [hourStr, minute] = time.split(':')
+  let hour = parseInt(hourStr)
+  const period = hour >= 12 ? 'م' : 'ص'
+  if (hour > 12) hour -= 12
+  if (hour === 0) hour = 12
+  return `${hour}:${minute} ${period}`
+}
   return (
     <div className="min-h-screen bg-gray-50 p-6" dir="rtl">
       <div className="max-w-4xl mx-auto">
@@ -79,8 +88,8 @@ export default function SupervisorPage() {
                     <td className="px-4 py-3">{r.employee_name}</td>
                     <td className="px-4 py-3">{r.date}</td>
                     <td className="px-4 py-3">{r.hours} ساعة</td>
-                    <td className="px-4 py-3">{r.enter_time}</td>
-                    <td className="px-4 py-3">{r.exit_time}</td>
+                    <td className="px-4 py-3">{formatTime(r.enter_time)}</td>
+                    <td className="px-4 py-3">{formatTime(r.exit_time)}</td>
                     <td className="px-4 py-3">{r.entrances}</td>
                   </tr>
                 ))}

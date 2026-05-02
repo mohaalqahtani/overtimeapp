@@ -20,7 +20,7 @@ export default function AdminPage() {
       added_by: user?.id,
       enter_time: form.enter_time,
       exit_time: form.exit_time,
-      entrances: form.entrances
+      entrances: form.entrances,
     })
 
     if (error) setMessage('حدث خطأ، حاول مرة ثانية')
@@ -83,27 +83,31 @@ export default function AdminPage() {
             />
           </div>
 
-          <div>
-            <label className="block text-sm text-gray-600 mb-1">بصمة الدخول</label>
-            <input
-              type="text"
-              value={form.enter_time}
-              onChange={e => setForm({ ...form, enter_time: e.target.value })}
-              className="w-full border rounded-lg px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-blue-500"
-              required
-            />
-          </div>
+<div>
+  <label className="block text-sm text-gray-600 mb-1">بصمة الدخول</label>
+  <div className="flex gap-2">
+    <input
+      type="time"
+      value={form.enter_time}
+      onChange={e => setForm({ ...form, enter_time: e.target.value })}
+      className="flex-1 border rounded-lg px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-blue-500"
+      required
+    />
+  </div>
+</div>
 
-          <div>
-            <label className="block text-sm text-gray-600 mb-1">بصمة الخروج</label>
-            <input
-              type="text"
-              value={form.exit_time}
-              onChange={e => setForm({ ...form, exit_time: e.target.value })}
-              className="w-full border rounded-lg px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-blue-500"
-              required
-            />
-          </div>
+<div>
+  <label className="block text-sm text-gray-600 mb-1">بصمة الخروج</label>
+  <div className="flex gap-2">
+    <input
+      type="time"
+      value={form.exit_time}
+      onChange={e => setForm({ ...form, exit_time: e.target.value })}
+      className="flex-1 border rounded-lg px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-blue-500"
+      required
+    />
+  </div>
+</div>
 
           <div>
             <label className="block text-sm text-gray-600 mb-1">الادخاليات</label>
